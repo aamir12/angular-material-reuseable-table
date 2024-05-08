@@ -7,7 +7,7 @@
           *matHeaderCellDef
           disabled="true"
           [ngStyle]="actionBtns.headerStyle ? actionBtns.headerStyle : {}"
-          [ngClass]="actionBtns.headerClasses ? actionBtns.headerClasses : []"
+          [ngClass]="actionBtns.headerClasses ? actionBtns.headerClasses.join(' ') : []"
         >
           Action
         </th>
@@ -15,7 +15,7 @@
           mat-cell
           *matCellDef="let row"
           [ngStyle]="actionBtns.dataStyle ? actionBtns.dataStyle : {}"
-          [ngClass]="actionBtns.dataClasses ? actionBtns.dataClasses : []"
+          [ngClass]="actionBtns.dataClasses ? actionBtns.dataClasses.join(' ') : []"
         >
           <button
             (click)="onOptionClick($event)"
@@ -45,7 +45,7 @@
           mat-sort-header
           [disabled]="col.disableSorting"
           [ngStyle]="col.headerStyle ? col.headerStyle : {}"
-          [ngClass]="col.headerClasses ? col.headerClasses : []"
+          [ngClass]="col.headerClasses ? col.headerClasses.join(' ') : []"
         >
           {{ col.displayName }}
         </th>
@@ -53,7 +53,7 @@
           mat-cell
           *matCellDef="let row"
           [ngStyle]="col.dataStyle ? col.dataStyle : {}"
-          [ngClass]="col.dataClasses ? col.dataClasses : []"
+          [ngClass]="col.dataClasses ? col.dataClasses.join(' ') : []"
         >
           {{ col.transForm ? col.transForm(row[col.name]) : row[col.name] }}
         </td>

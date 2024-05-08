@@ -20,3 +20,8 @@ body {
 .mat-sort-header-disabled .mat-sort-header-arrow {
   display: none !important;
 }
+
+.mat-column-action {
+  padding-left: 0px !important;
+  width: 50px;
+}

@@ -60,11 +60,11 @@ export class TableOverviewExample implements OnInit {
 
   actionBtns: IActionBtnConfiguration<IUserData> = {
     positions: 'start',
-    headerClasses: ['text-center'],
+    headerClasses: ['text-center','action-column'],
     dataStyle: {
       backgroundColor: '#f1f1f1',
     },
-    dataClasses: ['text-center'],
+    dataClasses: ['text-center','action-column'],
     buttons: [
       {
         name: 'View',
