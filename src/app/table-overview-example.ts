@@ -123,7 +123,7 @@ export class TableOverviewExample {
 
     setTimeout(() => {
       this.onProjectTypeChange();
-    }, 200);
+    }, 0);
   }
 
   applyFilter() {
@@ -217,30 +217,16 @@ export class TableOverviewExample {
   }
 
   onProjectTypeChange() {
-    let projects: IUserData[] = [];
     if (this.project_type === 'MY') {
-      projects = this.myProject;
+      this.data = this.myProject;
     } else if (this.project_type === 'TEAM') {
-      projects = this.teamProject;
+      this.data = this.teamProject;
     } else {
-      projects = this.allProject;
+      this.data = this.allProject;
     }
-    this.filterByOptions(projects);
-  }
-
-  filterByOptions(projects: IUserData[]) {
-    // if (this.status_type !== '3') {
-    //   this.data = projects.filter(
-    //     (project) => +project.status === +this.status_type
-    //   );
-    // } else {
-    //   this.data = projects;
-    // }
-
-    this.data = projects;
-
     this.applyFilter();
   }
+
 
   onStatusChange() {
     this.applyFilter();
