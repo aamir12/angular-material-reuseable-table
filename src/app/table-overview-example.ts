@@ -1,9 +1,7 @@
-import { Component, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { IActionBtnConfiguration, IColumn, IUserData } from './model';
 import { createNewUser } from './data';
-import { WINDOW } from './window.service';
-
 import { CurrencyPipe } from '@angular/common';
 
 @Component({
@@ -11,7 +9,7 @@ import { CurrencyPipe } from '@angular/common';
   styleUrls: ['table-overview-example.css'],
   templateUrl: 'table-overview-example.html',
 })
-export class TableOverviewExample {
+export class TableOverviewExample implements OnInit {
   data: IUserData[] = [];
   textSearch = '';
   project_type = 'ALL';
@@ -101,19 +99,15 @@ export class TableOverviewExample {
     console.log('Active', data.filter((d) => d.status === 1).length);
     console.log('Inactive', data.filter((d) => d.status === 2).length);
   }
-  //Window object wrapper
-  constructor(
-    @Inject(WINDOW) private window: Window,
-    private currencyPipe: CurrencyPipe
-  ) {
-    // setTimeout(() => {
-    //   this.window.alert("Hi...")
-    // }, 3000);
 
+  constructor(
+    private currencyPipe: CurrencyPipe
+  ) {}
+
+  ngOnInit() {
     // Create 100 users
     const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
     this.allProject = users;
-    console.log();
     this.myProject = this.allProject.filter((x) => x.project_type === 'MY');
     this.teamProject = this.allProject.filter((x) => x.project_type === 'TEAM');
 
@@ -217,6 +211,7 @@ export class TableOverviewExample {
   }
 
   onProjectTypeChange() {
+    console.log("onProjectTypeChange")
     if (this.project_type === 'MY') {
       this.data = this.myProject;
     } else if (this.project_type === 'TEAM') {
