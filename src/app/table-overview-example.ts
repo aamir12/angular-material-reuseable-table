@@ -60,11 +60,8 @@ export class TableOverviewExample implements OnInit {
 
   actionBtns: IActionBtnConfiguration<IUserData> = {
     positions: 'start',
-    headerClasses: ['text-center','action-column'],
-    dataStyle: {
-      backgroundColor: '#f1f1f1',
-    },
-    dataClasses: ['text-center','action-column'],
+    headerClasses: ['text-center', 'action-column'],
+    dataClasses: ['text-center', 'action-column'],
     buttons: [
       {
         name: 'View',
@@ -100,9 +97,7 @@ export class TableOverviewExample implements OnInit {
     console.log('Inactive', data.filter((d) => d.status === 2).length);
   }
 
-  constructor(
-    private currencyPipe: CurrencyPipe
-  ) {}
+  constructor(private currencyPipe: CurrencyPipe) {}
 
   ngOnInit() {
     // Create 100 users
@@ -178,24 +173,22 @@ export class TableOverviewExample implements OnInit {
   };
 
   filterFN = (row: IUserData, filter: string): boolean => {
-    // console.log('filterFN');
     const filterOption = JSON.parse(filter);
-    if (+filterOption.status === 3 && !filterOption?.textSearch?.trim()) {
-      // console.log('Both and filter blank');
+    const { status, textSearch } = filterOption;
+    const isBothSelect = +status === 3;
+    const isTextSearch = !!textSearch?.trim()?.length;
+
+    if (isBothSelect && !isTextSearch) {
+      console.log('Both and text search is blank');
       return true;
     }
 
-    if (+filterOption.status !== 3 && !filterOption?.textSearch?.trim()) {
-      // console.log('Active/Inactive and filter blank');
-      // console.log('Match Status', +row.status === +filterOption.status);
-      return +row.status === +filterOption.status;
-    }
+    const matchesStatus = isBothSelect || +row.status === +status;
+    const matchesTextSearch =
+      !isTextSearch ||
+      row.name.toLowerCase().includes(textSearch.toLowerCase());
 
-    // console.log('Active/Inactive and filter not blank');
-    return (
-      row.name.toLowerCase().includes(filterOption.textSearch.toLowerCase()) &&
-      +row.status === +filterOption.status
-    );
+    return matchesStatus && matchesTextSearch;
   };
 
   // On Row Click
@@ -211,17 +204,16 @@ export class TableOverviewExample implements OnInit {
   }
 
   onProjectTypeChange() {
-    console.log("onProjectTypeChange")
+    console.log('onProjectTypeChange');
     if (this.project_type === 'MY') {
-      this.data = this.myProject;
+      this.data = [...this.myProject];
     } else if (this.project_type === 'TEAM') {
-      this.data = this.teamProject;
+      this.data = [...this.teamProject];
     } else {
-      this.data = this.allProject;
+      this.data = [...this.allProject];
     }
     this.applyFilter();
   }
-
 
   onStatusChange() {
     this.applyFilter();
