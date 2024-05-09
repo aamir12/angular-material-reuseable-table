@@ -7,7 +7,9 @@
           *matHeaderCellDef
           disabled="true"
           [ngStyle]="actionBtns.headerStyle ? actionBtns.headerStyle : {}"
-          [ngClass]="actionBtns.headerClasses ? actionBtns.headerClasses.join(' ') : []"
+          [ngClass]="
+            actionBtns.headerClasses ? actionBtns.headerClasses.join(' ') : []
+          "
         >
           Action
         </th>
@@ -15,7 +17,9 @@
           mat-cell
           *matCellDef="let row"
           [ngStyle]="actionBtns.dataStyle ? actionBtns.dataStyle : {}"
-          [ngClass]="actionBtns.dataClasses ? actionBtns.dataClasses.join(' ') : []"
+          [ngClass]="
+            actionBtns.dataClasses ? actionBtns.dataClasses.join(' ') : []
+          "
         >
           <button
             (click)="onOptionClick($event)"
@@ -24,14 +28,18 @@
           >
             <mat-icon>more_vert</mat-icon>
           </button>
-          <mat-menu #menu="matMenu">
+          <mat-menu
+            #menu="matMenu"
+            class="mat-table-actions-menu"
+            xPosition="after"
+          >
             <ng-container *ngFor="let action of actionBtns.buttons">
               <button
                 mat-menu-item
                 *ngIf="action.access ? action.access(row) : true"
                 (click)="action.onClick(row)"
               >
-                <mat-icon *ngIf="action.icon">{{ action.icon }}</mat-icon>
+                <!-- <mat-icon *ngIf="action.icon">{{ action.icon }}</mat-icon> -->
                 <span>{{ action.name }}</span>
               </button>
             </ng-container>
